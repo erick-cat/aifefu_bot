@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.aikefu_bot02.mapper.KbEmbeddingMetaMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.aikefu_bot02.entity.KbEmbeddingMeta">
+            <id property="id" column="id" />
+            <result property="chunkId" column="chunk_id" />
+            <result property="modelName" column="model_name" />
+            <result property="embeddingDim" column="embedding_dim" />
+            <result property="vectorJson" column="vector_json" />
+            <result property="createdAt" column="created_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,chunk_id,model_name,embedding_dim,vector_json,created_at
+    </sql>
+</mapper>

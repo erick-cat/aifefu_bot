@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.aikefu_bot02.mapper.PromptTemplateHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.aikefu_bot02.entity.PromptTemplateHistory">
+            <id property="id" column="id" />
+            <result property="templateId" column="template_id" />
+            <result property="versionNo" column="version_no" />
+            <result property="content" column="content" />
+            <result property="changedBy" column="changed_by" />
+            <result property="changedAt" column="changed_at" />
+            <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,template_id,version_no,content,changed_by,changed_at,
+        remark
+    </sql>
+</mapper>

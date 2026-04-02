@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.aikefu_bot02.mapper.AgentUserMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.aikefu_bot02.entity.AgentUser">
+            <id property="id" column="id" />
+            <result property="workNo" column="work_no" />
+            <result property="displayName" column="display_name" />
+            <result property="bindAdminId" column="bind_admin_id" />
+            <result property="skillGroup" column="skill_group" />
+            <result property="status" column="status" />
+            <result property="onlineStatus" column="online_status" />
+            <result property="maxConcurrent" column="max_concurrent" />
+            <result property="createdAt" column="created_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,work_no,display_name,bind_admin_id,skill_group,status,
+        online_status,max_concurrent,created_at
+    </sql>
+</mapper>

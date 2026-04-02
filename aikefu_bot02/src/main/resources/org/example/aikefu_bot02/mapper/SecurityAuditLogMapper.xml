@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.aikefu_bot02.mapper.SecurityAuditLogMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.aikefu_bot02.entity.SecurityAuditLog">
+            <id property="id" column="id" />
+            <result property="userType" column="user_type" />
+            <result property="userId" column="user_id" />
+            <result property="eventType" column="event_type" />
+            <result property="ip" column="ip" />
+            <result property="userAgent" column="user_agent" />
+            <result property="result" column="result" />
+            <result property="detailJson" column="detail_json" />
+            <result property="createdAt" column="created_at" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_type,user_id,event_type,ip,user_agent,
+        result,detail_json,created_at
+    </sql>
+</mapper>
