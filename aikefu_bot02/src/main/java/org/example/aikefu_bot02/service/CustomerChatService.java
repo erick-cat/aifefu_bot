@@ -2,12 +2,14 @@ package org.example.aikefu_bot02.service;
 
 import org.example.aikefu_bot02.config.CustomerServiceProperties;
 import org.example.aikefu_bot02.config.DeepSeekProperties;
+import org.example.aikefu_bot02.constant.PortalChatPromptScene;
 import org.example.aikefu_bot02.dto.chat.ChatSendRequest;
 import org.example.aikefu_bot02.dto.chat.ChatSendResponse;
 import org.example.aikefu_bot02.entity.ChatMessage;
 import org.example.aikefu_bot02.entity.ChatSession;
 import org.example.aikefu_bot02.entity.KnowledgeDocument;
 import org.example.aikefu_bot02.entity.ShopProduct;
+import org.example.aikefu_bot02.service.PromptTemplateService;
 import org.example.aikefu_bot02.exception.BusinessException;
 import org.example.aikefu_bot02.llm.DeepSeekChatClient;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class CustomerChatService {
 	private final CustomerServiceProperties customerServiceProperties;
 	private final DeepSeekChatClient deepSeekChatClient;
 	private final DeepSeekProperties deepSeekProperties;
+	private final PromptTemplateService promptTemplateService;
 
 	public CustomerChatService(
 			ChatSessionService chatSessionService,
@@ -44,7 +47,8 @@ public class CustomerChatService {
 			KnowledgeContextService knowledgeContextService,
 			CustomerServiceProperties customerServiceProperties,
 			DeepSeekChatClient deepSeekChatClient,
-			DeepSeekProperties deepSeekProperties) {
+			DeepSeekProperties deepSeekProperties,
+			PromptTemplateService promptTemplateService) {
 		this.chatSessionService = chatSessionService;
 		this.chatMessageService = chatMessageService;
 		this.customerUserService = customerUserService;
@@ -53,6 +57,7 @@ public class CustomerChatService {
 		this.customerServiceProperties = customerServiceProperties;
 		this.deepSeekChatClient = deepSeekChatClient;
 		this.deepSeekProperties = deepSeekProperties;
+		this.promptTemplateService = promptTemplateService;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -184,6 +189,7 @@ public class CustomerChatService {
 		sb.append("【店铺级政策】仅在用户问题与退换/保修/发货时效相关时，可简要结合以下说明；否则不要展开。\n");
 		sb.append(p.getBusinessProfile().trim()).append("\n\n");
 		sb.append("【回复要求】\n").append(p.getReplyPolicy().trim()).append("\n\n");
+		appendPortalChatTone(sb);
 		if (StringUtils.hasText(deepSeekProperties.getSystemPrompt())) {
 			sb.append("【语气与格式补充】").append(deepSeekProperties.getSystemPrompt().trim());
 		}
@@ -196,6 +202,7 @@ public class CustomerChatService {
 		sb.append("你是「").append(p.getBrandName()).append("」的官方智能客服。\n\n");
 		sb.append("【业务与政策说明】\n").append(p.getBusinessProfile().trim()).append("\n\n");
 		sb.append("【回复要求】\n").append(p.getReplyPolicy().trim()).append("\n\n");
+		appendPortalChatTone(sb);
 		List<KnowledgeDocument> docs = knowledgeContextService.retrieveForUserMessage(userMessage);
 		String kb = knowledgeContextService.formatKnowledgeBlock(docs);
 		if (StringUtils.hasText(kb)) {
@@ -208,6 +215,15 @@ public class CustomerChatService {
 			sb.append("【语气与格式补充】").append(deepSeekProperties.getSystemPrompt().trim());
 		}
 		return trimToMax(sb.toString());
+	}
+
+	private void appendPortalChatTone(StringBuilder sb) {
+		String tone = promptTemplateService.getEnabledContentBySceneCode(PortalChatPromptScene.PORTAL_CUSTOMER_CHAT);
+		if (StringUtils.hasText(tone)) {
+			sb.append("【对话风格（运营配置，优先遵守）】\n");
+			sb.append(tone);
+			sb.append("\n\n");
+		}
 	}
 
 	private static String trimToMax(String all) {

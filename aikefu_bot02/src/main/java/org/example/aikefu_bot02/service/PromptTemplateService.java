@@ -10,4 +10,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PromptTemplateService extends IService<PromptTemplate> {
 
+	/**
+	 * 读取指定场景下「启用」模板的正文；无则返回空串。
+	 */
+	String getEnabledContentBySceneCode(String sceneCode);
 }
+

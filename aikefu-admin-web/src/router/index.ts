@@ -15,6 +15,12 @@ const router = createRouter({
         { path: 'knowledge', name: 'knowledge', component: () => import('@/views/KnowledgeView.vue'), meta: { title: '知识库' } },
         { path: 'sensitive', name: 'sensitive', component: () => import('@/views/SensitiveView.vue'), meta: { title: '敏感词' } },
         { path: 'prompt', name: 'prompt', component: () => import('@/views/PromptView.vue'), meta: { title: 'Prompt 模板' } },
+        {
+          path: 'portal-prompt',
+          name: 'portal-prompt',
+          component: () => import('@/views/PortalPromptView.vue'),
+          meta: { title: '门户对话提示词' },
+        },
         { path: 'llm', name: 'llm', component: () => import('@/views/LlmView.vue'), meta: { title: '模型配置' } },
         { path: 'chat', name: 'chat', component: () => import('@/views/ChatMonitorView.vue'), meta: { title: '会话监控' } },
         { path: 'customers', name: 'customers', component: () => import('@/views/CustomerUserView.vue'), meta: { title: 'C 端用户' } },

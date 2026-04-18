@@ -24,6 +24,7 @@ function logout() {
         <el-menu-item index="/knowledge">知识库</el-menu-item>
         <el-menu-item index="/sensitive">敏感词</el-menu-item>
         <el-menu-item index="/prompt">Prompt 模板</el-menu-item>
+        <el-menu-item index="/portal-prompt">门户对话提示词</el-menu-item>
         <el-menu-item index="/llm">模型配置</el-menu-item>
         <el-menu-item index="/chat">会话监控</el-menu-item>
         <el-menu-item index="/customers">C端用户</el-menu-item>

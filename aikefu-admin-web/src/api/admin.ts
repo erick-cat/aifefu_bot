@@ -28,6 +28,14 @@ export function fetchPromptPage(params: { current: number; size: number; sceneCo
   return unwrap(http.get<ApiResult<PageResult<Record<string, unknown>>>>('/admin/prompt-templates/page', { params }))
 }
 
+export function createPromptTemplate(body: Record<string, unknown>) {
+  return unwrap(http.post<ApiResult<Record<string, unknown>>>('/admin/prompt-templates', body))
+}
+
+export function updatePromptTemplate(id: number, body: Record<string, unknown>) {
+  return unwrap(http.put<ApiResult<Record<string, unknown>>>(`/admin/prompt-templates/${id}`, body))
+}
+
 export function fetchLlmPage(params: { current: number; size: number; configName?: string }) {
   return unwrap(http.get<ApiResult<PageResult<Record<string, unknown>>>>('/admin/llm-model-configs/page', { params }))
 }

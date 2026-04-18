@@ -184,7 +184,7 @@ async function send() {
     </header>
 
     <div v-if="product" class="product-bar">
-      <el-image :src="product.imageUrl || ''" class="thumb" fit="cover">
+      <el-image :src="product.imageUrl || ''" class="thumb" fit="cover" referrerpolicy="no-referrer">
         <template #error><div class="thumb-ph" /></template>
       </el-image>
       <div class="pinfo">
@@ -206,7 +206,12 @@ async function send() {
         </div>
         <div v-if="loading" class="row is-bot typing">
           <div class="avatar">AI</div>
-          <div class="bubble dim">正在思考…</div>
+          <div class="bubble dim typing-bubble">
+            <span class="typing-label">正在回复</span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
         </div>
       </div>
     </main>
@@ -372,10 +377,10 @@ async function send() {
   border: 1px solid rgba(94, 234, 212, 0.35);
 }
 .bubble {
-  max-width: min(640px, 85%);
+  max-width: min(680px, 88%);
   padding: 12px 16px;
   border-radius: 14px;
-  line-height: 1.65;
+  line-height: 1.72;
   font-size: 0.95rem;
   white-space: pre-wrap;
   word-break: break-word;
@@ -391,6 +396,43 @@ async function send() {
 .bubble.dim {
   opacity: 0.75;
   font-style: italic;
+}
+.typing-bubble {
+  min-width: 120px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.typing-label {
+  margin-right: 4px;
+}
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.35;
+  animation: typing-bounce 1s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.typing-dot:nth-child(4) {
+  animation-delay: 0.45s;
+}
+@keyframes typing-bounce {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
 }
 .composer {
   flex-shrink: 0;

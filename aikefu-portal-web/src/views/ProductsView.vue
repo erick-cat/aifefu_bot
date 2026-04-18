@@ -28,6 +28,13 @@ function goConsult(p: ShopProduct) {
   router.push({ path: '/chat', query: { productId: String(p.id) } })
 }
 
+/** 卡片角标：取商品名前两字，便于与占位图区分 */
+function productShortLabel(name: string): string {
+  const s = name.trim()
+  if (!s) return '商品'
+  return [...s].slice(0, 2).join('')
+}
+
 onMounted(load)
 </script>
 
@@ -43,11 +50,18 @@ onMounted(load)
       <div v-else class="grid">
         <article v-for="p in list" :key="p.id" class="card" @click="goConsult(p)">
           <div class="img-wrap">
-            <el-image :src="p.imageUrl || ''" fit="cover" class="img">
+            <el-image
+              :src="p.imageUrl || ''"
+              fit="cover"
+              class="img"
+              lazy
+              referrerpolicy="no-referrer"
+            >
               <template #error>
                 <div class="img-ph">无图</div>
               </template>
             </el-image>
+            <div class="img-label" :title="p.name">{{ productShortLabel(p.name) }}</div>
           </div>
           <div class="body">
             <span class="type">{{ p.type || '商品' }}</span>
@@ -118,12 +132,37 @@ onMounted(load)
   border-color: rgba(94, 234, 212, 0.25);
 }
 .img-wrap {
+  position: relative;
   aspect-ratio: 1;
   background: rgba(0, 0, 0, 0.25);
+}
+.img-wrap :deep(.el-image) {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.img-wrap :deep(.el-image__inner) {
+  width: 100%;
+  height: 100%;
 }
 .img {
   width: 100%;
   height: 100%;
+}
+.img-label {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  pointer-events: none;
+  letter-spacing: 0.06em;
+  z-index: 1;
 }
 .img-ph {
   display: flex;

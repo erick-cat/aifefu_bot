@@ -67,6 +67,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
+		<!-- Flyway：随应用启动自动执行 db/migration 下 SQL（部署到服务器时增量迁移） -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-flyway</artifactId>
+		</dependency>
+		<!-- Flyway 10+：MySQL 8.x/8.4 需 flyway-mysql，否则会报 Unsupported Database -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+		</dependency>
 		<!-- MyBatis-Plus：Spring Boot 4 请使用 boot4-starter（boot3-starter 在 SB4 下会导致 DataSource 与 MP 自动配置顺序问题） -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
