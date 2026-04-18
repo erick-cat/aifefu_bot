@@ -53,7 +53,7 @@ jobs:
             fuser -k 8080/tcp || true 
             
             # 2. 进入目录
-            cd /root/app/target  # 如果你没加 strip_components，文件会在这个死板路径下
+            cd /root/app # 如果你没加 strip_components，文件会在这个死板路径下
             # 如果加了 strip_components，请用：cd /root/app
             
             # 3. 确保旧日志不会无限增长
